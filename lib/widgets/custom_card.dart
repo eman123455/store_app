@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:store_app/models/products_model.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 
-class CustomCard extends StatelessWidget {
-  CustomCard({super.key, required this.product});
+class CustomCard extends StatefulWidget {
+  CustomCard({super.key, required this.product,required this.favouriteToggle});
   ProductsModel product;
+  final Function(bool) favouriteToggle;
+  @override
+  State<CustomCard> createState() => _CustomCardState();
+}
+
+class _CustomCardState extends State<CustomCard> {
+  Color color = Colors.white;
+  bool isActive = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, UpdateProductScreen.id,arguments: product);
+        Navigator.pushNamed(context, UpdateProductScreen.id,
+            arguments: [widget.product]);
       },
       child: Stack(clipBehavior: Clip.none, children: [
         Container(
@@ -18,7 +27,7 @@ class CustomCard extends StatelessWidget {
                 blurRadius: 40,
                 color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 0,
-                offset: Offset(10, 10)),
+                offset: const Offset(10, 10)),
           ]),
           child: Card(
             elevation: 10,
@@ -29,8 +38,8 @@ class CustomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.title.substring(0, 6),
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                    widget.product.title.substring(0, 6),
+                    style: const TextStyle(color: Colors.grey, fontSize: 16),
                   ),
                   const SizedBox(
                     height: 10,
@@ -39,12 +48,24 @@ class CustomCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$ ' '${product.price}',
-                        style: TextStyle(fontSize: 16),
+                        '\$ ' '${widget.product.price}',
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
+                      IconButton(
+                        onPressed: () {
+                          if (color == Colors.white) {
+                            color = Colors.red;
+                            isActive = true;
+                          } else if (color == Colors.red) {
+                            color = Colors.white;
+                            isActive = false;
+                          }
+                          setState(() {
+                            widget.favouriteToggle(isActive);
+                          });
+                        },
+                        icon: const Icon(Icons.favorite),
+                        color: color,
                       )
                     ],
                   )
@@ -54,10 +75,10 @@ class CustomCard extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: -50,
-            right: 25,
+            top: -55,
+            right: 9,
             child: Image.network(
-              product.image,
+              widget.product.image,
               height: 100,
               width: 100,
             ))

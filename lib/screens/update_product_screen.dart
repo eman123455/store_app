@@ -24,7 +24,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       inAsyncCall: isLoading,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title:const  Text(
             'Update Product',
           ),
           centerTitle: true,
@@ -34,7 +34,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+              const  SizedBox(
                   height: 100,
                 ),
                 CustomTextField(
@@ -42,7 +42,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       title = value;
                     },
                     hinttext: 'Product Name'),
-                SizedBox(
+              const   SizedBox(
                   height: 10,
                 ),
                 CustomTextField(
@@ -51,7 +51,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     },
                     type: TextInputType.number,
                     hinttext: 'Price'),
-                SizedBox(
+              const   SizedBox(
                   height: 10,
                 ),
                 CustomTextField(
@@ -59,7 +59,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       desc = val;
                     },
                     hinttext: 'Description'),
-                SizedBox(
+              const   SizedBox(
                   height: 10,
                 ),
                 CustomTextField(
@@ -67,7 +67,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       image = val;
                     },
                     hinttext: 'image'),
-                SizedBox(
+              const   SizedBox(
                   height: 20,
                 ),
                 CustomButton(
@@ -77,7 +77,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                         
                       });
                       try {
-                        await UpdateProduct(productsModel);
+                        await updateProduct(productsModel);
                         print('sucess added product');
                       } catch (e) {
                         print(e.toString());
@@ -98,7 +98,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     );
   }
 
-  Future<void> UpdateProduct(ProductsModel productsModel) async {
+  Future<void> updateProduct(ProductsModel productsModel) async {
     await UpdateProductService().updateProduct(
         title: title == null ? productsModel.title : title!,
         price: price == null ? productsModel.price.toString() : price!,

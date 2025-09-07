@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:store_app/constants.dart';
+import 'package:store_app/screens/favourite_screen.dart';
 import 'package:store_app/screens/home.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 
@@ -16,8 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        HomeScreen.id:(context)=>HomeScreen(),
+        HomeScreen.id:(context)=>const HomeScreen(),
         UpdateProductScreen.id:(context)=>UpdateProductScreen(),
+        FavouriteScreen.id:(context)=> FavouriteScreen(favouriteProducts: favouriteProducts,)
 
       },
       initialRoute: HomeScreen.id,

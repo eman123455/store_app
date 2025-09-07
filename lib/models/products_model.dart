@@ -9,7 +9,7 @@ class ProductsModel {
   final String image;
   final RatingModel ratingModel;
   final String category;
-
+  bool isActive;
   ProductsModel(
       {required this.id,
       required this.title,
@@ -17,7 +17,8 @@ class ProductsModel {
       required this.description,
       required this.image,
       required this.ratingModel,
-       required this.category
+      required this.category,
+      this.isActive=false
       });
 
   factory ProductsModel.fromJson(json) {
@@ -28,8 +29,6 @@ class ProductsModel {
         category: json['category'],
         description: json["description"],
         image: json["image"],
-       ratingModel: RatingModel.fromjson(json['rating'])
-        
-        );
+        ratingModel: RatingModel.fromjson(json['rating']));
   }
 }
